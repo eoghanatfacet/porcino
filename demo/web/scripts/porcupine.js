@@ -63,6 +63,7 @@ function porcupineErrorCallback(error) {
 function porcupineKeywordCallback(detection) {
   const time = new Date();
   const message = `keyword detected at ${time.toLocaleTimeString()}: ${detection.label} (index = ${detection.index})`;
+  console.log(message);
   writeMessage(message);
   window.WebVoiceProcessor.WebVoiceProcessor.unsubscribe(porcupine);
   console.log("porcupine released");
@@ -72,6 +73,11 @@ function porcupineKeywordCallback(detection) {
     window.WebVoiceProcessor.WebVoiceProcessor.subscribe(rhino);  
     console.log("rhino subscribed");
   }
+}
+
+async function stopAllPico(){
+  await window.WebVoiceProcessor.WebVoiceProcessor.reset();
+  writeMessage("Reset all PicoVoice animals!");
 }
 
 async function startPorcupine(accessKey, keywordIndex) {
